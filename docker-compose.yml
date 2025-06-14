@@ -15,6 +15,15 @@ services:
       - PORT=${CONTENT_MODERATOR_PORT}
       - HUGGINGFACE_HUB_TOKEN=${HUGGINGFACE_HUB_TOKEN}
 
+  content-moderator-python:
+    build: ./content-moderator-python
+    container_name: content-moderator-python
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+
 networks:
   app-network:
     driver: bridge
