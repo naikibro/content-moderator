@@ -1,0 +1,20 @@
+services:
+  # ----- C O N T E N T   M O D E R A T O R -----
+  content-moderator:
+    build: ./services/content-moderator
+    container_name: ${CONTENT_MODERATOR_CONTAINER_NAME}
+    ports:
+      - "${CONTENT_MODERATOR_PORT}:${CONTENT_MODERATOR_PORT}"
+    networks:
+      - app-network
+    volumes:
+      - ./services/content-moderator/src:/app/src
+    environment:
+      - NODE_ENV=dev
+      - PROJECT_NAME=${CONTENT_MODERATOR_DOCUMENTATION_TITLE}
+      - PORT=${CONTENT_MODERATOR_PORT}
+      - HUGGINGFACE_HUB_TOKEN=${HUGGINGFACE_HUB_TOKEN}
+
+networks:
+  app-network:
+    driver: bridge

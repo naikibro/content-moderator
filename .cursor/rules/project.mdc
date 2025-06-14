@@ -1,0 +1,58 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Create project
+- Create a new NestJS project named `content-moderation-service` using TypeScript
+
+# Add dependencies
+- Install the following npm dependencies:
+  - `@nestjs/axios`
+  - `@nestjs/common`
+  - `@nestjs/core`
+  - `@nestjs/platform-express`
+  - `@nestjs/config`
+  - `@tensorflow/tfjs-node`
+  - `nsfwjs`
+  - `@xenova/transformers`
+
+# Project structure
+- Inside `src/`, create the following folders and files:
+  - `moderation/`
+    - `moderation.module.ts`
+    - `moderation.controller.ts`
+    - `moderation.service.ts`
+  - `huggingface/`
+    - `huggingface.service.ts`
+  - `image/`
+    - `image.service.ts`
+  - `utils/`
+    - `scoring.ts`
+
+# Implement basic features
+
+## moderation.controller.ts
+- Create a `POST /moderate` endpoint
+- Accept a body with:
+  - `text?: string`
+  - `imageBase64?: string`
+- Call both `huggingface.service.analyzeText()` and `image.service.analyzeImage()` if inputs are provided
+- Compute a global score using `utils/scoring.ts`
+- Return:
+  - `details` (raw scores per category)
+  - `score` (global 0-1)
+  - `allowed_for_all_audience` (boolean)
+
+## huggingface.service.ts
+- Load `Xenova/toxic-bert` using `@xenova/transformers`
+- Analyze toxicity of input text
+
+## image.service.ts
+- Load `nsfwjs` model on init
+- Decode base64 image and analyze with NSFWJS
+
+## scoring.ts
+- Export a function `computeScore(details: Record<string, number>)` to combine category scores using a custom weighted formula
+
+# Optional: Add .env support with NestJS ConfigModule

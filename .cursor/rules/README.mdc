@@ -1,0 +1,37 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 🧠 Content Moderation Microservice
+
+Microservice de modération de contenu texte et image, développé avec **NestJS** et utilisant des **modèles d’IA gratuits exécutés localement**.
+
+## ✅ Objectifs
+
+- Détecter automatiquement les contenus inappropriés :
+  - 🔞 Nudité, 🪓 violence, 🧪 drogues, 🗣️ haine, etc.
+- Fournir un score entre `0` (très sensible) et `1` (convient à tout public)
+- Pas d’appel à des services payants externes
+
+---
+
+## ⚙️ Stack technique
+
+| Composant | Outil |
+|----------|-------|
+| Framework | NestJS (TypeScript) |
+| IA Texte | [`@xenova/transformers`](https://huggingface.co/Xenova) |
+| IA Image | [`nsfwjs`](https://github.com/infinitered/nsfwjs) |
+| Infra IA | Aucune API externe, tout en local |
+
+---
+
+## 🚀 Lancement
+
+```bash
+# Installer les dépendances
+npm install
+
+# Lancer le serveur
+npm run start:dev
